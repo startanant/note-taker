@@ -37,7 +37,13 @@ app.post("/api/notes", (req, res) => {
 });
 
 app.delete("/api/notes/:id", (req, res) => {
-    console.log(req);
+    let noteId = req.params.id;
+    let readNotes = fs.readFileSync("./db/db.json", "utf-8");
+    let notes = JSON.parse(readNotes);
+    let deleteNote = notes.filter( (note) => note.id != noteId );
+    let writeNotes = JSON.stringify(deleteNote);
+    fs.writeFileSync("./db/db.json", writeNotes);
+    res.json(notes);
 });
 
 
