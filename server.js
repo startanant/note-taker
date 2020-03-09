@@ -9,12 +9,23 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.static('public'));
 app.listen(PORT, () => {
-    console.log(`Application running on http://localhost:${PORT}`);
+    console.log(`App running on http://localhost:${PORT}`);
 });
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //routes
-app.get('/notes', function(req, res) {
+app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname + '/public/notes.html'));
 });
+
+app.get("/api/notes", (req, res) => {
+     let readNotes = fs.readFileSync("./db/db.json", "utf-8");
+     readNotes = JSON.parse(readNotes);
+     res.json(readNotes);
+});
+
+
 
 
