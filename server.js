@@ -21,9 +21,9 @@ app.get("/notes", (req, res) => {
 });
 
 app.get("/api/notes", (req, res) => {
-     let readNotes = fs.readFileSync("./db/db.json", "utf-8");
-     notes = JSON.parse(readNotes);
-     res.json(notes);
+    let readNotes = fs.readFileSync("./db/db.json", "utf-8");
+    notes = JSON.parse(readNotes);
+    res.json(notes);
 });
 
 app.post("/api/notes", (req, res) => {
@@ -36,6 +36,8 @@ app.post("/api/notes", (req, res) => {
     res.json(notes);
 });
 
-
+app.delete("/api/notes/:id", (req, res) => {
+    console.log(req);
+});
 
 
